@@ -1,4 +1,4 @@
-  Snowflake [] snow = new Snowflake[100];
+  Snowflake [] snow = new Snowflake[1000];
 void setup()
 {
   size(600,600);
@@ -21,11 +21,24 @@ void draw()
   }
   //your code here
 }
+void keyPressed()
+{
+  background(0);
+}
 void mouseDragged()
 {
   noStroke();
-  fill(255,0,0);
-  ellipse(mouseX,mouseY,10,10);
+  if(mouseButton == LEFT)
+  {
+    fill(255,0,0);
+    ellipse(mouseX,mouseY,10,10);
+  }
+  else
+  {
+    fill(0);
+    ellipse(mouseX,mouseY,15,15); 
+  }
+  
   //your code here
 }
 
@@ -37,7 +50,7 @@ class Snowflake
   Snowflake()
   {
     myX=(int)(Math.random()*600);
-    myY=(int)(Math.random()*600);
+    myY=(int)(Math.random()*600)-600;
     isMoving= true;
     //class member variable initializations
   }
@@ -49,7 +62,8 @@ class Snowflake
   }
   void lookDown()
   {
-    if((myY>= 0 && myY <= 600) && (get(myX,myY+1) != color(0)))
+    if((myY>= 0 && myY <= 600) && ((get(myX,myY+6) == color(255,0,0)) 
+      || ((get(myX+6,myY) == color(255,0,0))) || (get(myX-6,myY) == color(255,0,0))))
     {
       isMoving = false;
     }
@@ -75,9 +89,9 @@ class Snowflake
   }
   void wrap()
   {
-    if(myY >600)
+    if(myY >590)
     {
-      myY=0;
+      myY=(int)(Math.random()*100)-100;
       myX=(int)(Math.random()*600);
     }
     //your code here
